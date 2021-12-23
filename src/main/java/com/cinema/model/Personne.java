@@ -50,21 +50,19 @@ public class Personne  extends AbstractModel<Long>{
 	}
 	
 	
-	@JsonIgnore
+	
 	@ManyToMany(mappedBy = "acteurs")
+	@JsonIgnore
 	private Set<Film> acteurfilms;
 	
-	@JsonIgnore
+
     @OneToMany(mappedBy = "realisateur")
+    @JsonIgnore
     private List<Film> realisateurfilms;
     
 
-//    @ManyToOne
-//    @JoinColumn(name = "nationalite_id")
-//    private Nationalite nationalite;
-    
     @ManyToOne
-    @JoinColumn(name = "nationalite_id", referencedColumnName = "id")
+    @JoinColumn(name = "nationalite_id")
     private Nationalite nationalite;
     
     

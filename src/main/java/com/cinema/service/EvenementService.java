@@ -8,15 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.cinema.model.Evenement;
-
-
-import com.cinema.repository.EvenementRespository;
-
-
+import com.cinema.repository.EvenementRepository;
 @Service
 public class EvenementService extends AbstractService<Evenement, Long> {
 	@Autowired
-	private EvenementRespository evenementRepository;
+	private EvenementRepository evenementRepository;
 
 	@Override
 	protected JpaRepository<Evenement, Long> getRepository() {
@@ -36,4 +32,3 @@ public class EvenementService extends AbstractService<Evenement, Long> {
 	}
 
 }
-

@@ -1,5 +1,4 @@
 
-
 package com.cinema.controller;
 
 import com.cinema.model.Personne;
@@ -28,7 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+
 @RestController
 @RequestMapping("/api/personnes")
 public class PersonneController {
@@ -40,6 +39,7 @@ public class PersonneController {
         this.personneService = personneService;
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public ResponseEntity<List<Personne>> getAllPersonnes() {
       try {
@@ -53,19 +53,39 @@ public class PersonneController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<Personne> getPersonneById(@PathVariable("id") long id) {
-      Optional<Personne> personne = personneService.findById(id);
+    Optional<Personne> personne = personneService.findById(id);
 
-      if (personne.isPresent()) {
-        return new ResponseEntity<>(personne.get(), HttpStatus.OK);
-      } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-      }
+    if (personne.isPresent()) {
+    return new ResponseEntity<>(personne.get(), HttpStatus.OK);
+    } else {
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     }
     
-    @PostMapping("/add")
+    
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/rechercher")
+    public ResponseEntity<List<Personne>> getRealisateurs() {
+    try {
+    Personne personne = new Personne();
+    List<Personne> personnes = personneService.findAllByType(personne.getType().realisateur);
+    if (!personnes.isEmpty()) {
+    return new ResponseEntity<>(personnes, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (Exception e) {
+    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    }
+        
+    
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/")
     public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
       try {
     	  Personne newPersonne = personneService.save(personne);
@@ -74,8 +94,8 @@ public class PersonneController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
-    @PutMapping("/update/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
     public ResponseEntity<Personne> updatePersonne(@PathVariable("id") long id, @RequestBody Personne personne) {
       Optional<Personne> currentPersonne = personneService.findById(id);
 
@@ -93,8 +113,8 @@ public class PersonneController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-
-    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deletePersonne(@PathVariable("id") long id) {
       try {
     	  personneService.delete(id);

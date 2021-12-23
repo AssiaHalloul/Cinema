@@ -28,8 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+@CrossOrigin(origins = "http://localhost:4200")
 
-@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/newsLetters")
 public class NewsLetterController {
@@ -54,7 +54,7 @@ public class NewsLetterController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<NewsLetter> getNationaliteById(@PathVariable("id") long id) {
       Optional<NewsLetter> newsLetter = newsLetterService.findById(id);
@@ -65,8 +65,8 @@ public class NewsLetterController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-    
-    @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/")
     public ResponseEntity<NewsLetter> createNewsLetter(@RequestBody NewsLetter newsLetter) {
       try {
     	  NewsLetter newNewsLetter = newsLetterService.save(newsLetter);
@@ -76,8 +76,8 @@ public class NewsLetterController {
       }
     }
 
-    
-    @PutMapping("/update/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
     public ResponseEntity<NewsLetter> updatenewNewsLetter(@PathVariable("id") long id, @RequestBody NewsLetter newNewsLetter) {
       Optional<NewsLetter> currentNewsLetter = newsLetterService.findById(id);
 
@@ -91,8 +91,8 @@ public class NewsLetterController {
     }
 
     
-    
-    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteNationalite(@PathVariable("id") long id) {
       try {
     	  newsLetterService.delete(id);

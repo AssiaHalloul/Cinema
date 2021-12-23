@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Proxy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -41,11 +39,10 @@ public class Gallerie  extends AbstractModel<Long>{
 	
 	
 
-	 
+	
 	@ManyToOne @JoinColumn(name="film_id", nullable=false)
 	 private Film film;
-	 
-	
+
 	@ManyToOne @JoinColumn(name="evenement_id", nullable=false)
 	 private Evenement evenement;
 

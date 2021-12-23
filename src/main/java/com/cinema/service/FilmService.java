@@ -8,10 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.cinema.model.Film;
-
 import com.cinema.repository.FilmRepository;
-
-
 @Service
 public class FilmService extends AbstractService<Film, Long> {
 	@Autowired

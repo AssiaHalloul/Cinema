@@ -45,8 +45,9 @@ public class Film  extends AbstractModel<Long>{
 	private String trailer;
 
 
-@JsonIgnore
+
 @OneToMany(mappedBy = "film")
+@JsonIgnore
 private List<Gallerie> galleries;
 
 
@@ -74,13 +75,14 @@ private Nationalite nationalite;
 @JoinColumn(name = "genre_id", referencedColumnName = "id")
 private Genre genre;
 
-@JsonIgnore
 @OneToMany(mappedBy = "film")
+@JsonIgnore
 private List<Seance> seances;
 
 
 
 @OneToMany(mappedBy = "film")
+@JsonIgnore
 private List<Evenement> evenements;
 
 

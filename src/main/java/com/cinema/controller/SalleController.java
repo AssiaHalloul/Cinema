@@ -98,7 +98,7 @@ public class SalleController {
     }
 
     @GetMapping("/rechercher")
-    public ResponseEntity<Salle> getSalleByNum(@RequestParam(value= "num") Integer numero) {
+    public ResponseEntity<Salle> getSalleByNum(@RequestParam(value= "num") Long numero) {
       try {
         Salle salle = salleService.findByNum(numero);
         if (salle == null) {

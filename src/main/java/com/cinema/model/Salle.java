@@ -1,5 +1,6 @@
 package com.cinema.model;
 
+
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -34,40 +35,40 @@ import java.util.Set;
 @Table(name="salles")
 @Proxy(lazy = false)
 public class Salle  extends AbstractModel<Long>{
-	private Integer num;
-	private Integer nombre_places;
-       
+	private int num;
+	private int nombre_places;
+
 	
-	@JsonIgnore
 	  @OneToMany(mappedBy = "salle")
-	    private List<Seance> seances;
+	  @JsonIgnore
+	  private List<Seance> seances;
 
 
-	public Integer getNum() {
+	public int getNum() {
 		return num;
 	}
-
-
-	public void setNum(Integer num) {
+	
+	
+	public void setNum(int num) {
 		this.num = num;
 	}
-
-
+	
+	
 	public int getNombre_places() {
 		return nombre_places;
 	}
-
-
+	
+	
 	public void setNombre_places(int nombre_places) {
 		this.nombre_places = nombre_places;
 	}
-
-
+	
+	
 	public List<Seance> getSeances() {
 		return seances;
 	}
-
-
+	
+	
 	public void setSeances(List<Seance> seances) {
 		this.seances = seances;
 	}

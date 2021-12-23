@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cinema.model.Gallerie;
 import com.cinema.service.GallerieService;
 
 
-@Controller
+@RestController
 @RequestMapping("/api/galleries")
 public class GallerieController {
 	private GallerieService gallerieService;
@@ -34,6 +36,7 @@ public class GallerieController {
         this.gallerieService = gallerieService;
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public ResponseEntity<List<Gallerie>> getAllCalleries() {
       try {
@@ -48,6 +51,7 @@ public class GallerieController {
       }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<Gallerie> getgalleriesById(@PathVariable("id") long id) {
       Optional<Gallerie> gallerie = gallerieService.findById(id);
@@ -59,7 +63,8 @@ public class GallerieController {
       }
     }
     
-    @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/")
     public ResponseEntity<Gallerie> creategallerie(@RequestBody Gallerie gallerie) {
       try {
     	  Gallerie newGallerie = gallerieService.save(gallerie);
@@ -68,8 +73,9 @@ public class GallerieController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
-    @PutMapping("/update/{id}")
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
     public ResponseEntity<Gallerie> updateGallerie(@PathVariable("id") long id, @RequestBody Gallerie gallerie) {
       Optional<Gallerie> currentGallerie = gallerieService.findById(id);
 
@@ -89,7 +95,8 @@ public class GallerieController {
       }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteGallerie(@PathVariable("id") long id) {
       try {
     	  gallerieService.delete(id);

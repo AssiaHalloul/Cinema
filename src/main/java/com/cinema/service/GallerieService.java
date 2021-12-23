@@ -27,7 +27,6 @@ public class GallerieService extends AbstractService<Gallerie, Long> {
 
 	public List<Gallerie> getListAll() {
 		// TODO Auto-generated method stub
-		
 		return gallerieRepository.findAll();
 	}
 

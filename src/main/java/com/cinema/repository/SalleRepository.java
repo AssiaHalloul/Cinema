@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SalleRepository extends JpaRepository<Salle, Long> {
 
-	Salle findByNum(int numero);
+	Salle findByNum(Long numero);
 
 }

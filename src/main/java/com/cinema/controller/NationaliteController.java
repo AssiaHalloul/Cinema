@@ -26,7 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/nationalites")
 public class NationaliteController {
@@ -39,7 +39,7 @@ public class NationaliteController {
     }
     
     @GetMapping("/")
-    public ResponseEntity<List<Nationalite>> getAllTutorials() {
+    public ResponseEntity<List<Nationalite>> getAllNationalites() {
       try {
         List<Nationalite> nationalites = new ArrayList<Nationalite>();
         nationalites = nationaliteService.getListAll();
@@ -63,7 +63,7 @@ public class NationaliteController {
       }
     }
     
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Nationalite> createNationalite(@RequestBody Nationalite nationalite) {
       try {
     	  Nationalite newNationalite = nationaliteService.save(nationalite);
@@ -73,7 +73,7 @@ public class NationaliteController {
       }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Nationalite> updateNationalite(@PathVariable("id") long id, @RequestBody Nationalite nationalite) {
       Optional<Nationalite> currentNationalite = nationaliteService.findById(id);
 
@@ -86,7 +86,7 @@ public class NationaliteController {
       }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteNationalite(@PathVariable("id") long id) {
       try {
     	nationaliteService.delete(id);
@@ -97,18 +97,19 @@ public class NationaliteController {
     }
 
     @GetMapping("/rechercher")
-    public ResponseEntity<Nationalite> getNationaliteByLibelle() {
+    public ResponseEntity<Nationalite> getNationaliteByLibelle(@RequestParam(value = "libelle") String text) {
       try {
-        Nationalite nationalite = nationaliteService.findByLibelle("Francais");
+        Nationalite nationalite = nationaliteService.findByLibelle(text);
         if (nationalite == null) {
-          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+          return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(nationalite, HttpStatus.OK);
+        return new ResponseEntity<>(nationalite, HttpStatus.NO_CONTENT);
         
       } catch (Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
 
-
+    
+   
 }

@@ -43,135 +43,133 @@ public class Evenement  extends AbstractModel<Long>{
 
 	
 	
-   
+
 	
 	@ManyToOne
     @JoinColumn(name = "film_id", referencedColumnName = "id")
     private Film film;
 	
 	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "evenement")
+	@JsonIgnore
 	private List<Seance> seances;
 	
-
-         @JsonIgnore
-		@OneToMany(mappedBy="evenement")
-		private List<Gallerie> galleries;
+	@OneToMany(mappedBy="evenement")
+	@JsonIgnore
+	private List<Gallerie> galleries;
 	   
-   
-	   
-	    @ManyToOne
-	    @JoinColumn(name = "type_id", referencedColumnName = "id")
-	    private TypeEvent typeEvent;
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    private TypeEvent typeEvent;
 
 
 
-		public String getTitre() {
-			return titre;
-		}
+	public String getTitre() {
+		return titre;
+	}
 
 
 
-		public void setTitre(String titre) {
-			this.titre = titre;
-		}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 
 
 
-		public Integer getDuree() {
-			return duree;
-		}
+	public Integer getDuree() {
+		return duree;
+	}
 
 
 
-		public void setDuree(Integer duree) {
-			this.duree = duree;
-		}
+	public void setDuree(Integer duree) {
+		this.duree = duree;
+	}
 
 
 
-		public String getDescription() {
-			return description;
-		}
+	public String getDescription() {
+		return description;
+	}
 
 
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 
 
-		public Date getDate() {
-			return date;
-		}
+	public Date getDate() {
+		return date;
+	}
 
 
 
-		public void setDate(Date date) {
-			this.date = date;
-		}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 
 
-		public String getPoster() {
-			return poster;
-		}
+	public String getPoster() {
+		return poster;
+	}
 
 
 
-		public void setPoster(String poster) {
-			this.poster = poster;
-		}
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
 
 
 
-		public Film getFilm() {
-			return film;
-		}
+	public Film getFilm() {
+		return film;
+	}
 
 
 
-		public void setFilm(Film film) {
-			this.film = film;
-		}
+	public void setFilm(Film film) {
+		this.film = film;
+	}
 
 
 
-		public List<Seance> getSeances() {
-			return seances;
-		}
+	public List<Seance> getSeances() {
+		return seances;
+	}
 
 
 
-		public void setSeances(List<Seance> seances) {
-			this.seances = seances;
-		}
+	public void setSeances(List<Seance> seances) {
+		this.seances = seances;
+	}
 
 
 
-		public List<Gallerie> getGalleries() {
-			return galleries;
-		}
+	public List<Gallerie> getGalleries() {
+		return galleries;
+	}
 
 
 
-		public void setGalleries(List<Gallerie> galleries) {
-			this.galleries = galleries;
-		}
+	public void setGalleries(List<Gallerie> galleries) {
+		this.galleries = galleries;
+	}
 
 
 
-		public TypeEvent getTypeEvent() {
-			return typeEvent;
-		}
+	public TypeEvent getTypeEvent() {
+		return typeEvent;
+	}
 
 
 
-		public void setTypeEvent(TypeEvent typeEvent) {
-			this.typeEvent = typeEvent;
-		}
+	public void setTypeEvent(TypeEvent typeEvent) {
+		this.typeEvent = typeEvent;
+	}
 
 
 

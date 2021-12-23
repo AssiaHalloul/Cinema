@@ -31,7 +31,7 @@ public class SalleService extends AbstractService<Salle, Long> {
 		return salleRepository.findById(id);
 	}
 
-	public Salle findByNum(int numero) {
+	public Salle findByNum(Long numero) {
 		// TODO Auto-generated method stub
 		return salleRepository.findByNum(numero);
 	}

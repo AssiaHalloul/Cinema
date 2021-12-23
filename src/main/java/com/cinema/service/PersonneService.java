@@ -2,6 +2,7 @@
 package com.cinema.service;
 
 import com.cinema.model.Personne;
+import com.cinema.model.Personne.roleEnum;
 import com.cinema.repository.PersonneRepository;
 
 import java.util.List;
@@ -35,6 +36,15 @@ public class PersonneService extends AbstractService<Personne, Long> {
 
 	public Personne findByLibelle(String nom) {
 		return personneRepository.findByNom(nom);
+	}
+
+	public Personne findByType(roleEnum realisateur) {
+		return personneRepository.findByType(realisateur);
+	}
+
+	public List<Personne> findAllByType(roleEnum realisateur) {
+		// TODO Auto-generated method stub
+		return personneRepository.findAllByType(realisateur);
 	}
 
 }

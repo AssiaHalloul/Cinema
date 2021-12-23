@@ -40,10 +40,10 @@ public class TypeEvent  extends AbstractModel<Long>{
 //	@ManyToMany(mappedBy = "types")
 //	Set<Evenement> evenement;
 	
-	@JsonIgnore
-    @OneToMany(mappedBy = "typeEvent")
-    private List<Evenement> evenements;
 	
+    @OneToMany(mappedBy = "typeEvent")
+    @JsonIgnore
+    private List<Evenement> evenements;
 
 	public String getType_event() {
 		return type_event;

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class TypeEventController {
     public void setTypeEventService(TypeEventService typeEventService) {
         this.typeEventService = typeEventService;
     }
-    
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public ResponseEntity<List<TypeEvent>> getAllTypesEvent() {
       try {
@@ -47,7 +48,7 @@ public class TypeEventController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<TypeEvent> getTypeEventById(@PathVariable("id") long id) {
       Optional<TypeEvent> typeEvent = typeEventService.findById(id);
@@ -58,8 +59,8 @@ public class TypeEventController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-    
-    @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/")
     public ResponseEntity<TypeEvent> createTypeEvent(@RequestBody TypeEvent typeEvent) {
       try {
     	  TypeEvent newTypeEvent = typeEventService.save(typeEvent);
@@ -68,8 +69,9 @@ public class TypeEventController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
-    @PutMapping("/update/{id}")
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
     public ResponseEntity<TypeEvent> updateTypeEvent(@PathVariable("id") long id, @RequestBody TypeEvent typeEvent) {
       Optional<TypeEvent> currentTypeEvent = typeEventService.findById(id);
 
@@ -81,8 +83,9 @@ public class TypeEventController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-
-    @DeleteMapping("/delete/{id}")
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTypeEvent(@PathVariable("id") long id) {
       try {
     	  typeEventService.delete(id);

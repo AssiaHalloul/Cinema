@@ -48,14 +48,6 @@ public class Nationalite  extends AbstractModel<Long>{
     private List<Personne> personnes;
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getLibelle() {
 		return libelle;
 	}

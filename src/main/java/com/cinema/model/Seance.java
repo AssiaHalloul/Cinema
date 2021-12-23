@@ -1,5 +1,6 @@
 package com.cinema.model;
 
+
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -29,7 +30,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="seances")
+@Table(name="sceances")
 @Proxy(lazy = false)
 public class Seance  extends AbstractModel<Long>{
 	private Date date;
@@ -45,51 +46,51 @@ public class Seance  extends AbstractModel<Long>{
     private Evenement evenement;
     
 	   
- @ManyToOne
- @JoinColumn(name = "salle_id", referencedColumnName = "id")
- private Salle salle;
+	 @ManyToOne
+	 @JoinColumn(name = "salle_id", referencedColumnName = "id")
+	 private Salle salle;
 
 
-public Date getDate() {
-	return date;
-}
-
-
-public void setDate(Date date) {
-	this.date = date;
-}
-
-
-public Film getFilm() {
-	return film;
-}
-
-
-public void setFilm(Film film) {
-	this.film = film;
-}
-
-
-public Evenement getEvenement() {
-	return evenement;
-}
-
-
-public void setEvenement(Evenement evenement) {
-	this.evenement = evenement;
-}
-
-
-public Salle getSalle() {
-	return salle;
-}
-
-
-public void setSalle(Salle salle) {
-	this.salle = salle;
-}
+	public Date getDate() {
+		return date;
+	}
 	
 	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
+	public Film getFilm() {
+		return film;
+	}
+	
+	
+	public void setFilm(Film film) {
+		this.film = film;
+	}
+	
+	
+	public Evenement getEvenement() {
+		return evenement;
+	}
+	
+	
+	public void setEvenement(Evenement evenement) {
+		this.evenement = evenement;
+	}
+	
+	
+	public Salle getSalle() {
+		return salle;
+	}
+	
+	
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
+		
+		
 
 	
 	

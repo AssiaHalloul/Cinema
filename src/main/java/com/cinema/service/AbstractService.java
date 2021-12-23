@@ -1,14 +1,13 @@
 package com.cinema.service;
 
 
-import com.cinema.model.AbstractModel;
-import com.cinema.model.Personne;
-
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cinema.model.AbstractModel;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,16 +24,11 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
 
         return getRepository().findAll(pageRequest);
     }
-
     
+   /* public List<T> getListAll() {
+       return  getRepository().findAll();
+    }*/
 
-	public List<T> getListAll() {
-		// TODO Auto-generated method stub
-		return getRepository().findAll();
-	}
-
-    
-    
     public T save(T entity) {
         return getRepository().save(entity);
     }

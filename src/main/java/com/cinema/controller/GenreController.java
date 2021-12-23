@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class GenreController {
         this.genreService = genreService;
     }
     
+   @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public ResponseEntity<List<Genre>> getAllGenres() {
       try {
@@ -49,6 +51,7 @@ public class GenreController {
       }
     }
 
+   @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<Genre> getGenreById(@PathVariable("id") long id) {
       Optional<Genre> genre = genreService.findById(id);
@@ -60,7 +63,8 @@ public class GenreController {
       }
     }
     
-    @PostMapping("/add")
+   @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/")
     public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
       try {
     	  Genre newGenre = genreService.save(genre);
@@ -69,8 +73,9 @@ public class GenreController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-
-    @PutMapping("/update/{id}")
+   
+   @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
     public ResponseEntity<Genre> updateGenre(@PathVariable("id") long id, @RequestBody Genre genre) {
       Optional<Genre> currentGenre = genreService.findById(id);
 
@@ -83,7 +88,8 @@ public class GenreController {
       }
     }
 
-    @DeleteMapping("/delete/{id}")
+   @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteGenre(@PathVariable("id") long id) {
       try {
     	genreService.delete(id);

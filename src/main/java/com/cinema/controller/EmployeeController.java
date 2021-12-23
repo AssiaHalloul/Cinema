@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin()
 public class EmployeeController {
-    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
+	@RequestMapping(value = "/greeting", method = RequestMethod.GET)
     public String getEmployees() {
         return "Welcome!";
+    }
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String getTest() {
+        return "Welcome test!";
     }
 }
