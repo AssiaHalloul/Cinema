@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cinema.model.Genre;
@@ -25,7 +26,8 @@ import com.cinema.model.Nationalite;
 import com.cinema.service.GenreService;
 
 
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/genres")
 public class GenreController {
 	private GenreService genreService;
@@ -36,7 +38,6 @@ public class GenreController {
         this.genreService = genreService;
     }
     
-   @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public ResponseEntity<List<Genre>> getAllGenres() {
       try {
@@ -51,7 +52,6 @@ public class GenreController {
       }
     }
 
-   @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<Genre> getGenreById(@PathVariable("id") long id) {
       Optional<Genre> genre = genreService.findById(id);
@@ -63,7 +63,6 @@ public class GenreController {
       }
     }
     
-   @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/")
     public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
       try {
@@ -73,8 +72,7 @@ public class GenreController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-   
-   @CrossOrigin(origins = "http://localhost:4200")
+
     @PutMapping("/{id}")
     public ResponseEntity<Genre> updateGenre(@PathVariable("id") long id, @RequestBody Genre genre) {
       Optional<Genre> currentGenre = genreService.findById(id);
@@ -88,7 +86,6 @@ public class GenreController {
       }
     }
 
-   @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteGenre(@PathVariable("id") long id) {
       try {

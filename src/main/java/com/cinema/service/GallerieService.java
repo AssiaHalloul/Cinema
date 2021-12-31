@@ -29,6 +29,16 @@ public class GallerieService extends AbstractService<Gallerie, Long> {
 		// TODO Auto-generated method stub
 		return gallerieRepository.findAll();
 	}
+	
+	public List<Gallerie> getListAllFilms(Long id) {
+		// TODO Auto-generated method stub
+		return gallerieRepository.findAllByFilmId(id);
+	}
+	
+	public List<Gallerie> getListAllFilmsEvent(Long id) {
+		// TODO Auto-generated method stub
+		return gallerieRepository.findAllByEvenementId(id);
+	}
 
 	public Optional<Gallerie> findById(long id) {
 		// TODO Auto-generated method stub

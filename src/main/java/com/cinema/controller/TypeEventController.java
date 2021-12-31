@@ -18,13 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cinema.model.Genre;
 import com.cinema.model.TypeEvent;
 import com.cinema.service.TypeEventService;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/typeEvents")
 public class TypeEventController {
 	private TypeEventService typeEventService;
@@ -34,7 +36,7 @@ public class TypeEventController {
     public void setTypeEventService(TypeEventService typeEventService) {
         this.typeEventService = typeEventService;
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @GetMapping("/")
     public ResponseEntity<List<TypeEvent>> getAllTypesEvent() {
       try {
@@ -48,7 +50,7 @@ public class TypeEventController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/{id}")
     public ResponseEntity<TypeEvent> getTypeEventById(@PathVariable("id") long id) {
       Optional<TypeEvent> typeEvent = typeEventService.findById(id);
@@ -59,7 +61,7 @@ public class TypeEventController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @PostMapping("/")
     public ResponseEntity<TypeEvent> createTypeEvent(@RequestBody TypeEvent typeEvent) {
       try {
@@ -69,8 +71,7 @@ public class TypeEventController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-    
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @PutMapping("/{id}")
     public ResponseEntity<TypeEvent> updateTypeEvent(@PathVariable("id") long id, @RequestBody TypeEvent typeEvent) {
       Optional<TypeEvent> currentTypeEvent = typeEventService.findById(id);
@@ -83,8 +84,7 @@ public class TypeEventController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-    
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTypeEvent(@PathVariable("id") long id) {
       try {

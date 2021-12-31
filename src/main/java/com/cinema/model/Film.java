@@ -7,7 +7,11 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Proxy;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,13 +55,13 @@ public class Film  extends AbstractModel<Long>{
 private List<Gallerie> galleries;
 
 
-
-@ManyToMany
-@JoinTable(
-  name = "film_acteur", 
-  joinColumns = @JoinColumn(name = "film_id"), 
-  inverseJoinColumns = @JoinColumn(name = "personne_id"))
-private Set<Personne> acteurs;
+	@ManyToMany
+	@JoinTable(
+	  name = "film_acteur", 
+	  joinColumns = @JoinColumn(name = "film_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "personne_id"))
+	@JsonIgnoreProperties("acteurfilms")
+	private List<Personne> acteurs;
 
 
 @ManyToOne
@@ -198,13 +202,13 @@ public void setGenre(Genre genre) {
 
 
 
-public Set<Personne> getActeurs() {
+public List<Personne> getActeurs() {
 	return acteurs;
 }
 
 
 
-public void setActeurs(Set<Personne> acteurs) {
+public void setActeurs(List<Personne> acteurs) {
 	this.acteurs = acteurs;
 }
 

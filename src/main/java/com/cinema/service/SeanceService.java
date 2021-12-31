@@ -29,6 +29,10 @@ public class SeanceService extends AbstractService<Seance, Long> {
 		// TODO Auto-generated method stub
 		return seanceRepository.findById(id);
 	}
+	
+	public List<Object> getFilmSeances(long film){
+		return seanceRepository.findAllByFilmId(film);
+	}
 
 
 }

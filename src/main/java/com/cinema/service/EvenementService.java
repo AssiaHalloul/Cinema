@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.cinema.model.Evenement;
+import com.cinema.model.Gallerie;
 import com.cinema.repository.EvenementRepository;
 @Service
 public class EvenementService extends AbstractService<Evenement, Long> {
@@ -30,5 +31,12 @@ public class EvenementService extends AbstractService<Evenement, Long> {
 		// TODO Auto-generated method stub
 		return evenementRepository.findById(id);
 	}
+	
+	public List<Evenement> getListAllEventFilms(Long id) {
+		// TODO Auto-generated method stub
+		return evenementRepository.findAllByFilmId(id);
+	}
+	
+	
 
 }

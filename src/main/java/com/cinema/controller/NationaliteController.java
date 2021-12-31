@@ -97,13 +97,13 @@ public class NationaliteController {
     }
 
     @GetMapping("/rechercher")
-    public ResponseEntity<Nationalite> getNationaliteByLibelle(@RequestParam(value = "libelle") String text) {
+    public ResponseEntity<Nationalite> getNationaliteByLibelle(@RequestParam(value="libelle") String text) {
       try {
         Nationalite nationalite = nationaliteService.findByLibelle(text);
-        if (nationalite == null) {
-          return new ResponseEntity<>(HttpStatus.OK);
+        if (nationalite != null) {
+        	return new ResponseEntity<>(nationalite, HttpStatus.OK);
         }
-        return new ResponseEntity<>(nationalite, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         
       } catch (Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

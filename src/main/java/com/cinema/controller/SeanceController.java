@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.model.Film;
 import com.cinema.model.Seance;
 import com.cinema.service.FilmService;
 import com.cinema.service.SeanceService;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/seances")
 public class SeanceController {
 	private  SeanceService seanceService;
@@ -55,9 +59,10 @@ public class SeanceController {
       }
     }
 	
-	@PostMapping("/add")
+	@PostMapping("/")
     public ResponseEntity<Seance> createSeance(@RequestBody Seance seance) {
       try {
+    	  
     	  Seance newSeance = seanceService.save(seance);
         return new ResponseEntity<>(newSeance, HttpStatus.CREATED);
       } catch (Exception e) {
@@ -65,7 +70,24 @@ public class SeanceController {
       }
     }
 	
-	@PutMapping("/update/{id}")
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/filmSeances")
+	public ResponseEntity<List<Object>> AllFilmSeances(@RequestParam("film") long film) {
+	  try {
+	    List<Object> seances = new ArrayList<>();
+
+	    seances = seanceService.getFilmSeances(film);
+	    
+	    if (seances.isEmpty()) {
+	      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    }
+	    return new ResponseEntity<>(seances, HttpStatus.OK);
+	  } catch (Exception e) {
+	    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	  }
+	}
+	
+	@PutMapping("/{id}")
     public ResponseEntity<Seance> updateSeance(@PathVariable("id") long id, @RequestBody Seance seance) {
       Optional<Seance> currentSeance = seanceService.findById(id);
 
@@ -83,7 +105,7 @@ public class SeanceController {
       }
     }
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteSeance(@PathVariable("id") long id) {
       try {
     	seanceService.delete(id);

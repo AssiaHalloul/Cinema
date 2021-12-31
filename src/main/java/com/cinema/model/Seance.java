@@ -1,11 +1,12 @@
 package com.cinema.model;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,22 +28,24 @@ import java.util.Set;
 @Data
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Table(name="sceances")
 @Proxy(lazy = false)
 public class Seance  extends AbstractModel<Long>{
-	private Date date;
+	
+    @DateTimeFormat(pattern = "dd/MM/yyyy h:mm a")
+    private Date date;
 
 	
 	   
     @ManyToOne
-    @JoinColumn(name = "film_id", referencedColumnName = "id")
+    @JoinColumn(name = "film_id", referencedColumnName = "id", nullable=true)
     private Film film;
     
     @ManyToOne
-    @JoinColumn(name = "evenement_id", referencedColumnName = "id")
+    @JoinColumn(name = "evenement_id", referencedColumnName = "id", nullable=true)
     private Evenement evenement;
     
 	   

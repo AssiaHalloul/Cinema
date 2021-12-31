@@ -34,17 +34,8 @@ public class PersonneService extends AbstractService<Personne, Long> {
 		return personneRepository.findById(id);
 	}
 
-	public Personne findByLibelle(String nom) {
-		return personneRepository.findByNom(nom);
-	}
-
-	public Personne findByType(roleEnum realisateur) {
-		return personneRepository.findByType(realisateur);
-	}
-
-	public List<Personne> findAllByType(roleEnum realisateur) {
-		// TODO Auto-generated method stub
-		return personneRepository.findAllByType(realisateur);
+	public List<Personne> findAllByType(roleEnum nom) {
+		return personneRepository.findAllByType(nom);
 	}
 
 }

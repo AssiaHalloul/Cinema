@@ -34,16 +34,16 @@ import java.util.Set;
 @Table(name="galleries")
 @Proxy(lazy = false)
 public class Gallerie  extends AbstractModel<Long>{
+	
 	private String titre;
 	private String image;
 	
-	
-
-	
-	@ManyToOne @JoinColumn(name="film_id", nullable=false)
+	@ManyToOne 
+	@JoinColumn(name="film_id", nullable=true)
 	 private Film film;
 
-	@ManyToOne @JoinColumn(name="evenement_id", nullable=false)
+	@ManyToOne 
+	@JoinColumn(name="evenement_id", nullable=true)
 	 private Evenement evenement;
 
 	public String getTitre() {
@@ -77,11 +77,6 @@ public class Gallerie  extends AbstractModel<Long>{
 	public void setEvenement(Evenement evenement) {
 		this.evenement = evenement;
 	}
-
-	
-
-
-
 
 	
 }

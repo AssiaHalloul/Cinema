@@ -1,6 +1,9 @@
 package com.cinema.controller;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,14 +32,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cinema.model.Evenement;
 import com.cinema.model.Film;
+import com.cinema.model.Gallerie;
+import com.cinema.model.Personne;
 import com.cinema.service.EvenementService;
 import com.cinema.service.FilmService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/evenements")
 public class EvenementController {
 	private EvenementService evenementService;
@@ -44,7 +50,6 @@ public class EvenementController {
         this.evenementService = evenementService;
     }
 	
-	 @CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/")
     public ResponseEntity<List<Evenement>> getAllEvenements() {
       try {
@@ -58,7 +63,22 @@ public class EvenementController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-	 @CrossOrigin(origins = "http://localhost:4200")
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/filmsEvent/{id}")
+    public ResponseEntity<List<Evenement>> getAllImagesByFilm(@PathVariable("id")Long id) {
+      try {
+        List<Evenement> galleries = new ArrayList<Evenement>();
+        galleries = evenementService.getListAllEventFilms(id);
+        if (galleries.isEmpty()) {
+          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(galleries, HttpStatus.OK);
+      } catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
+	
 	@GetMapping("/{id}")
     public ResponseEntity<Evenement> getEventById(@PathVariable("id") long id) {
       Optional<Evenement> event = evenementService.findById(id);
@@ -119,26 +139,53 @@ public class EvenementController {
       }
 	 }
 	
-	 @CrossOrigin(origins = "http://localhost:4200")
-	@PutMapping("/{id}")
-    public ResponseEntity<Evenement> updateEvent(@PathVariable("id") long id, @RequestBody Evenement evenement) {
-      Optional<Evenement> currentEvent = evenementService.findById(id);
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping(value="/{id}",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Evenement> updateEvent(@PathVariable("id") long id,@RequestParam("file") MultipartFile file,
+    		@RequestParam("evenement") String evenement) throws JsonParseException , JsonMappingException , Exception
+	{
+		Optional<Evenement> currentEvent = evenementService.findById(id);
+		Evenement event = new ObjectMapper().readValue(evenement, Evenement.class);
+			
+		String filename = file.getOriginalFilename();
+		String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
+		System.out.println(newFileName);
+		File serverFile = new File(context.getRealPath("/Images/evenements/"+File.separator+newFileName));
+		try
+		{
+			FileUtils.writeByteArrayToFile(serverFile,file.getBytes()); 	 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		  
+		Path path = Paths.get("src\\main\\webapp\\Images\\evenements\\"+currentEvent.get().getPoster());
+		System.out.println(path);
+		String filePath = path.toAbsolutePath().toString();
+		Path imagesPath = Paths.get(filePath);
+		System.out.println("path "+filePath );
 
+		try {   
+			Files.delete(imagesPath);
+			System.out.println("File or directory deleted e successfully");  
+		}catch(Exception e){
+			System.out.println("impossible to delete the file");
+		}
+		
       if (currentEvent.isPresent()) {
         Evenement updateEvent = currentEvent.get();
-        updateEvent.setTitre(evenement.getTitre());
-        updateEvent.setDuree(evenement.getDuree());
-        updateEvent.setDescription(evenement.getDescription());
-        updateEvent.setDate(evenement.getDate());
-        updateEvent.setPoster(evenement.getPoster());
-        updateEvent.setFilm(evenement.getFilm());
-        updateEvent.setTypeEvent(evenement.getTypeEvent());
+        updateEvent.setTitre(event.getTitre());
+        updateEvent.setDuree(event.getDuree());
+        updateEvent.setDescription(event.getDescription());
+//        updateEvent.setDate(event.getDate());
+        updateEvent.setPoster(newFileName);
+        updateEvent.setFilm(event.getFilm());
+        updateEvent.setTypeEvent(event.getTypeEvent());
       return new ResponseEntity<>(evenementService.save(updateEvent), HttpStatus.OK);
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-	 @CrossOrigin(origins = "http://localhost:4200")
+	
 	@DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteEvent(@PathVariable("id") long id) {
       try {

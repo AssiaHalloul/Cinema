@@ -8,7 +8,11 @@ import javax.persistence.*;
 import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +42,7 @@ import java.util.Set;
 public class Personne  extends AbstractModel<Long>{
 	private String nom;
 	private String  prenom;
+	private String photo;
 	
 //	@DateTimeFormat(pattern = "MM-dd-yyyy")
 	private Date date_naissance;
@@ -50,10 +55,9 @@ public class Personne  extends AbstractModel<Long>{
 	}
 	
 	
-	
 	@ManyToMany(mappedBy = "acteurs")
-	@JsonIgnore
-	private Set<Film> acteurfilms;
+	@JsonIgnoreProperties("acteurs")
+	private List<Film> acteurfilms;
 	
 
     @OneToMany(mappedBy = "realisateur")
@@ -118,13 +122,13 @@ public class Personne  extends AbstractModel<Long>{
 
 
 
-	public Set<Film> getActeurfilms() {
+	public List<Film> getActeurfilms() {
 		return acteurfilms;
 	}
 
 
 
-	public void setActeurfilms(Set<Film> acteurfilms) {
+	public void setActeurfilms(List<Film> acteurfilms) {
 		this.acteurfilms = acteurfilms;
 	}
 
@@ -161,6 +165,18 @@ public class Personne  extends AbstractModel<Long>{
 	@Override
 	public String toString() {
 		return  nom +" "+prenom ;
+	}
+
+
+
+	public String getPhoto() {
+		return photo;
+	}
+
+
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	

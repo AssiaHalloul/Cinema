@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/salles")
 public class SalleController {
@@ -63,7 +63,7 @@ public class SalleController {
       }
     }
     
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Salle> createSalle(@RequestBody Salle salle) {
       try {
     	  Salle newSalle = salleService.save(salle);
@@ -73,7 +73,7 @@ public class SalleController {
       }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Salle> updateSalle(@PathVariable("id") long id, @RequestBody Salle salle) {
       Optional<Salle> currentSalle = salleService.findById(id);
 
@@ -87,7 +87,7 @@ public class SalleController {
       }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteSalle(@PathVariable("id") long id) {
       try {
     	salleService.delete(id);

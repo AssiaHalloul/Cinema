@@ -14,8 +14,6 @@ public interface PersonneRepository extends JpaRepository<Personne, Long> {
 
 	Personne findByNom(String nom);
 
-	Personne findByType(roleEnum realisateur);
-
-	List<Personne> findAllByType(roleEnum realisateur);
+	List<Personne> findAllByType(roleEnum nom);
 
 }

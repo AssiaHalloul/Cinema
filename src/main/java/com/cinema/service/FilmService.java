@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.cinema.model.Film;
+import com.cinema.model.Genre;
 import com.cinema.repository.FilmRepository;
 @Service
 public class FilmService extends AbstractService<Film, Long> {
@@ -30,5 +31,22 @@ public class FilmService extends AbstractService<Film, Long> {
 		// TODO Auto-generated method stub
 		return filmRepository.findById(id);
 	}
+	
+	public List<Film> getAllFilmsByStatusANDGenre(String status, String genre){
+		return filmRepository.SearchStatueANDGenre(status, genre);
+	}
+	
+	public List<Object> getFilmsByDate(String date) {
+		// TODO Auto-generated method stub
+		return filmRepository.getFilmsByDate(date);
+	}
+	
+	public List<Film> getAllFilmsByStatus(String status){
+		return filmRepository.findAllByStatue(status);
+	}
+	
+//	public List<Film> getAllFilmsByStatusANDGenre(String status, String genre){
+//		return filmRepository.findAllByStatueANDGenre(status, genre);
+//	}
 
 }

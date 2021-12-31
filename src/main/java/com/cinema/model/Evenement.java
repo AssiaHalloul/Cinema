@@ -38,13 +38,10 @@ public class Evenement  extends AbstractModel<Long>{
 	private String titre;
 	private Integer duree;
 	private String description;
-	private Date date;
 	private String poster;
 
 	
-	
 
-	
 	@ManyToOne
     @JoinColumn(name = "film_id", referencedColumnName = "id")
     private Film film;
@@ -98,20 +95,6 @@ public class Evenement  extends AbstractModel<Long>{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
-
-	public Date getDate() {
-		return date;
-	}
-
-
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-
 
 	public String getPoster() {
 		return poster;
